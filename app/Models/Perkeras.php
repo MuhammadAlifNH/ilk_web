@@ -26,4 +26,10 @@ class Perkeras extends Model
         return $this->belongsTo(User::class, 'user_id');
     }
 
+    public function rincianKeras()
+    {
+        return $this->hasMany(RincianKeras::class);
+    }
+
+
 }

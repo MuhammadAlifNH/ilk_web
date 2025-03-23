@@ -39,9 +39,19 @@ class PerlunakController extends Controller
         }        
     }
 
-    public function destroy(Perlunak $perlunak)
+    public function destroy($id)
     {
-        $perlunak->delete();
-        return redirect()->back()->with('success', 'Data perlunak berhasil dihapus');
+        $perlunak = Perlunak::find($id);
+
+        if (!$perlunak) {
+            return redirect()->back()->with('error', 'Data perangkat lunak tidak ditemukan');
+        }
+
+        try {
+            $perlunak->delete();
+            return redirect()->back()->with('success', 'Data perangkat lunak berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Terjadi kesalahan saat menghapus data perangkat lunak');
+        }
     }
 }

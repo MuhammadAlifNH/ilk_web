@@ -25,5 +25,10 @@ class Perlunak extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function rincianLunak()
+    {
+        return $this->hasMany(RincianLunak::class);
+    }
     
 }

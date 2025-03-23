@@ -56,5 +56,10 @@ class Fakultas extends Model
     {
         return $this->hasMany(Inventaris::class);
     }
+
+    public function pemeriksaan()
+    {
+        return $this->hasManyThrough(Pemeriksaan::class, Labs::class);
+    }
 }
 

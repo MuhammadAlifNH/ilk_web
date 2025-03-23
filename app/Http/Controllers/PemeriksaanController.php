@@ -4,9 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Fakultas;
 use App\Models\Labs;
-use App\Models\Pemriksaan;
-use App\Models\RinciKeras;
-use App\Models\RinciLunak;
+use App\Models\Pemeriksaan;
+use App\Models\RincianKeras;
+use App\Models\RincianLunak;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -15,15 +15,15 @@ class PemeriksaanController extends Controller
     public function index()
     {
         $fakultas = Fakultas::all();
-        $pemeriksaan = Pemriksaan::with('lab.fakultas', 'user')->get();
-        return view('features.pemriksaan.index');
+        $pemeriksaan = Pemeriksaan::with('lab.fakultas', 'user')->get();
+        return view('features.pemeriksaan.index', compact('pemeriksaan', 'fakultas'));
     }
 
     public function create()
     {
         $fakultas = Fakultas::all();
         $labs = Labs::all();
-        return view('features.pemriksaan.create', compact('fakultas', 'labs'));
+        return view('features.pemeriksaan.create', compact('fakultas', 'labs'));
     }
 
     public function store(Request $request)
@@ -38,8 +38,8 @@ class PemeriksaanController extends Controller
         ]);
 
         try {
-            // Simpan data utama ke tabel pemriksaan
-            $pemeriksaan = Pemriksaan::create([
+            // Simpan data utama ke tabel pemeriksaan
+            $pemeriksaan = Pemeriksaan::create([
                 'jenis' => $request->jenis,
                 'tanggal' => $request->tanggal,
                 'fakultas_id' => $request->fakultas_id,
@@ -51,8 +51,8 @@ class PemeriksaanController extends Controller
             switch ($request->jenis) {
                 case 'Perangkat Keras':
                     foreach ($request->perkeras as $kerasen) {
-                        RinciKeras::create([
-                            'pemeriksaan_id' => $pemeriksaan->id, // Hubungkan dengan pemriksaan_id
+                        RincianKeras::create([
+                            'pemeriksaan_id' => $pemeriksaan->id, // Hubungkan dengan pemeriksaan_id
                             'keras_id' => $kerasen['keras_id'],
                             'kondisi_fisik' => $kerasen['kondisi_fisik'],
                             'kondisi_fungsional' => $kerasen['kondisi_fungsional'],
@@ -62,8 +62,8 @@ class PemeriksaanController extends Controller
                     break;
                 case 'Perangkat Lunak':
                     foreach ($request->perlunak as $lunaken) {
-                        RinciLunak::create([
-                            'pemeriksaan_id' => $pemeriksaan->id, // Hubungkan dengan pemriksaan_id
+                        RincianLunak::create([
+                            'pemeriksaan_id' => $pemeriksaan->id, // Hubungkan dengan pemeriksaan_id
                             'lunak_id' => $lunaken['lunak_id'],
                             'kondisi' => $lunaken['kondisi'],
                             'keterangan' => $lunaken['keterangan'],
@@ -72,28 +72,28 @@ class PemeriksaanController extends Controller
                     break;
             }
 
-            return redirect()->route('pemriksaan.index')->with('success', 'Berhasil menambahkan data pemriksaan');
+            return redirect()->route('pemeriksaan.index')->with('success', 'Berhasil menambahkan data pemeriksaan');
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', 'Gagal menambahkan data pemriksaan');
+            return redirect()->back()->with('error', 'Gagal menambahkan data pemeriksaan');
         }
     }
 
     public function show($id)
     {
-        $pemeriksaan = Pemriksaan::with('lab.fakultas', 'user')->find($id);
+        $pemeriksaan = Pemeriksaan::with('lab.fakultas', 'user')->find($id);
         if (!$pemeriksaan) {
-            return redirect()->route('pemriksaan.index')->with('error', 'Data tidak ditemukan');
+            return redirect()->route('pemeriksaan.index')->with('error', 'Data tidak ditemukan');
         }
-        return view('features.pemriksaan.show', compact('pemeriksaan'));
+        return view('features.pemeriksaan.show', compact('pemeriksaan'));
     }
 
     public function destroy($id)
     {
-        $pemeriksaan = Pemriksaan::find($id);
+        $pemeriksaan = Pemeriksaan::find($id);
         if (!$pemeriksaan) {
             return redirect()->route('pemeriksaan.index')->with('error', 'Data tidak ditemukan');
         }
         $pemeriksaan->delete();
-        return redirect()->route('pemriksaan.index')->with('success', 'Berhasil menghapus data pemriksaan');
+        return redirect()->route('pemeriksaan.index')->with('success', 'Berhasil menghapus data pemeriksaan');
     }
 }

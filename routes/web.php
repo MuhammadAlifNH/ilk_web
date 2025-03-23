@@ -19,6 +19,7 @@ use App\Http\Controllers\PerlunakController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\JadwalController;
+use App\Http\Controllers\PemeriksaanController;
 
 Route::get('/', function () {
     return view('welcome');
@@ -75,7 +76,7 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/inventaris/download/{id}', [InventarisController::class, 'download'])->name('inventaris.download');
 
-
+    Route::resource('pemeriksaan', PemeriksaanController::class);
 
 });
 

@@ -43,10 +43,19 @@ class PerkerasController extends Controller
         }        
     }
 
-    public function destroy(Perkeras $perkeras)
+    public function destroy($id)
     {
-        $perkeras->delete();
-        return redirect()->back()->with('success', 'Data perkeras berhasil dihapus');
-    }
+        $perkeras = Perkeras::find($id);
 
+        if (!$perkeras) {
+            return redirect()->back()->with('error', 'Data peralatan keras tidak ditemukan');
+        }
+
+        try {
+            $perkeras->delete();
+            return redirect()->back()->with('success', 'Data peralatan keras berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Terjadi kesalahan saat menghapus data peralatan keras');
+        }
+    }
 }
