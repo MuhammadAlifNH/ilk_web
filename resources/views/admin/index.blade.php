@@ -74,5 +74,27 @@
          <h3 class="mt-4 text-xl font-semibold text-white">Kelola Inventaris</h3>
       </a>
       
+      <a href="{{ route('periksa_keras.index') }}"
+         class="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-purple-400 to-black-400 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+         </svg>
+         <h3 class="mt-4 text-xl font-semibold text-white">Pemeriksaan Perangkat Keras</h3>
+      </a>
+
+      <a href="{{ route('periksa_lunak.index') }}"
+         class="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-yellow-400 to-black-400 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+         </svg>
+         <h3 class="mt-4 text-xl font-semibold text-white">Pemeriksaan Perangkat Lunak</h3>
+      </a>
+      
   </div>
 </div>

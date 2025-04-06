@@ -16,7 +16,6 @@ return new class extends Migration
             $table->foreignId('fakultas_id')->constrained('fakultas')->onDelete('cascade');
             $table->foreignId('lab_id')->constrained('labs')->onDelete('cascade');
             $table->string('nama');
-            $table->string('versi');
             $table->foreignId('user_id')
                 ->nullable()
                 ->constrained()

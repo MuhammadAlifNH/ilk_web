@@ -52,9 +52,19 @@ class LabController extends Controller
     }
 
 
-        public function destroy(Labs $lab)
-        {
+    public function destroy($id)
+    {
+        $lab = Labs::find($id);
+
+        if (!$lab) {
+            return redirect()->back()->with('error', 'Data lab tidak ditemukan');
+        }
+
+        try {
             $lab->delete();
             return redirect()->back()->with('success', 'Data lab berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Terjadi kesalahan saat menghapus data lab');
         }
+    }
     }

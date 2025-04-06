@@ -11,15 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('perkeras', function (Blueprint $table) {
+        Schema::create('periksa_lunaks', function (Blueprint $table) {
             $table->id();
             $table->foreignId('fakultas_id')->constrained('fakultas')->onDelete('cascade');
             $table->foreignId('lab_id')->constrained('labs')->onDelete('cascade');
-            $table->string('nama');           
-            $table->foreignId('user_id')
-                ->nullable()
-                ->constrained()
-                ->nullOnDelete(); 
+            $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
+            $table->date('tanggal');
             $table->timestamps();
         });
     }
@@ -29,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('perkeras');
+        Schema::dropIfExists('periksa_lunaks');
     }
 };

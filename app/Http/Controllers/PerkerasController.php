@@ -23,8 +23,6 @@ class PerkerasController extends Controller
             'fakultas_id' => 'required|exists:fakultas,id',
             'lab_id' => 'required|exists:labs,id',
             'nama' => 'required|string|max:255',
-            'merek' => 'required|string|max:255',
-            'tahun_pembelian' => 'required|digits:4|integer|min:2000|max:' . date('Y'),
         ]);
 
         try {
@@ -32,8 +30,6 @@ class PerkerasController extends Controller
             $perkeras->fakultas_id = $request->fakultas_id;
             $perkeras->lab_id = $request->lab_id;
             $perkeras->nama = $request->nama;
-            $perkeras->merek = $request->merek;
-            $perkeras->tahun_pembelian = $request->tahun_pembelian;
             $perkeras->user_id = Auth::id();
             $perkeras->save();
 
@@ -43,10 +39,19 @@ class PerkerasController extends Controller
         }        
     }
 
-    public function destroy(Perkeras $perkeras)
+    public function destroy($id)
     {
-        $perkeras->delete();
-        return redirect()->back()->with('success', 'Data perkeras berhasil dihapus');
-    }
+        $perkeras = Perkeras::find($id);
 
+        if (!$perkeras) {
+            return redirect()->back()->with('error', 'Data peralatan keras tidak ditemukan');
+        }
+
+        try {
+            $perkeras->delete();
+            return redirect()->back()->with('success', 'Data peralatan keras berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Terjadi kesalahan saat menghapus data peralatan keras');
+        }
+    }
 }

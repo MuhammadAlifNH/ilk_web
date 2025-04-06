@@ -9,7 +9,7 @@ class Perlunak extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['fakultas_id', 'lab_id', 'nama', 'versi', 'user_id'];
+    protected $fillable = ['fakultas_id', 'lab_id', 'nama', 'user_id'];
 
     public function fakultas()
     {
@@ -25,5 +25,10 @@ class Perlunak extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
-    
+
+    public function periksaLunakDetail()
+    {
+        return $this->hasMany(PeriksaLunakDetail::class, 'perlunak_id');
+    }
+
 }

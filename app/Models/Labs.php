@@ -47,4 +47,14 @@ class Labs extends Model
         return response()->json(Labs::where('fakultas_id', $fakultasId)->get());
     }
 
+    public function periksaLunak()
+    {
+        return $this->hasMany(PeriksaLunak::class, 'lab_id');
+    }
+    
+    public function periksaKeras()
+    {
+        return $this->hasMany(PeriksaKeras::class, 'lab_id');
+    }
+
 }

@@ -37,12 +37,21 @@ class FakultasController extends Controller
     
 
 
-    public function destroy(Fakultas $fakultas)
+    public function destroy($id)
     {
-        // Hapus data
-        $fakultas->delete();
+        $fakultas = Fakultas::find($id);
 
-        return redirect()->back()->with('success', 'Data fakultas berhasil dihapus');
+        if (!$fakultas) {
+            return redirect()->back()->with('error', 'Data fakultas tidak ditemukan');
+        }
+
+        try {
+            $fakultas->delete();
+            return redirect()->back()->with('success', 'Data fakultas berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Terjadi kesalahan saat menghapus data fakultas');
+        }
     }
+
     
 }

@@ -52,14 +52,21 @@ class JadwalController extends Controller
     
 
 
-    public function destroy(Jadwal $jadwal)
+    public function destroy($id)
     {
-        // Hapus file dari storage jika ada
-        if ($jadwal->nama) {
-            Storage::disk('public')->delete($jadwal->nama);
+        $jadwal = Jadwal::find($id);
+
+        if (!$jadwal) {
+            return redirect()->back()->with('error', 'Data jadwal tidak ditemukan');
         }
 
-        $jadwal->delete();
-        return redirect()->back()->with('success', 'Data jadwal berhasil dihapus');
+        try {
+            // Hapus file jadwal dari storage
+            Storage::disk('public')->delete($jadwal->jadwal);
+            $jadwal->delete();
+            return redirect()->back()->with('success', 'Data jadwal berhasil dihapus');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('success', 'Terjadi kesalahan saat menghapus data jadwal');
+        }
     }
 }

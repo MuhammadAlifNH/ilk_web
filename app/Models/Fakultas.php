@@ -56,5 +56,15 @@ class Fakultas extends Model
     {
         return $this->hasMany(Inventaris::class);
     }
+
+    public function periksaLunak()
+    {
+        return $this->hasManyThrough(PeriksaLunak::class, Labs::class);
+    }
+
+    public function periksaKeras()
+    {
+        return $this->hasManyThrough(PeriksaKeras::class, Labs::class);
+    }
 }
 

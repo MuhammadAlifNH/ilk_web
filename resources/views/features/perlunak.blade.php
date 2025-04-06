@@ -34,7 +34,6 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fakultas</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Perangkat</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Versi</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ditambahkan Oleh</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                                 </tr>
@@ -46,7 +45,6 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perlk->fakultas->nama_fakultas }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perlk->lab->nama_lab }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ $perlk->nama }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $perlk->versi }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $perlk->user->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             <form action="{{ route('perlunak.destroy', $perlk->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus {{ $perlk->nama }}?')">
@@ -93,9 +91,6 @@
                 </td>
                 <td class="px-6 py-4">
                     <input type="text" name="nama" placeholder="Perangkat" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </td>
-                <td class="px-6 py-4">
-                    <input type="text" name="versi" placeholder="Versi" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </td>
                 <td class="px-6 py-4 text-sm text-gray-500">{{ auth()->user()->name }}</td>
                 <td class="px-6 py-4 space-x-2">
@@ -158,7 +153,6 @@
             let fakultasId = row.querySelector('select[name="fakultas_id"]').value;
             let labId = row.querySelector('select[name="lab_id"]').value;
             let nama = row.querySelector('input[name="nama"]').value;
-            let versi = row.querySelector('input[name="versi"]').value;
 
             fetch("{{ route('perlunak.store') }}", {
                 method: "POST",
@@ -171,7 +165,6 @@
                     fakultas_id: fakultasId,
                     lab_id: labId,
                     nama: nama,
-                    versi: versi
                 })
             })
             .then(response => response.json())
