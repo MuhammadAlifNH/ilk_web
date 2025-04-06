@@ -2,10 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
 
-class Pemeriksaan extends Model
+class PeriksaLunak extends Model
 {
     use HasFactory;
 
@@ -26,13 +26,8 @@ class Pemeriksaan extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function keras()
+    public function details()
     {
-        return $this->hasMany(RincianKeras::class);
-    }
-
-    public function lunaks()
-    {
-        return $this->hasMany(RincianLunak::class);
+        return $this->hasMany(PeriksaLunakDetail::class);
     }
 }

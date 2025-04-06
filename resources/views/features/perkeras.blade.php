@@ -34,8 +34,6 @@
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Fakultas</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lab</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Perangkat</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Merek</th>
-                                    <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tahun Pembelian</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Ditambahkan Oleh</th>
                                     <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
                                 </tr>
@@ -47,8 +45,6 @@
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perkera->lab->fakultas->nama_fakultas }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ $perkera->lab->nama_lab }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900 font-medium">{{ $perkera->nama }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $perkera->merek }}</td>
-                                        <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ $perkera->tahun_pembelian }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{{ $perkera->user->name }}</td>
                                         <td class="px-6 py-4 whitespace-nowrap text-sm">
                                             <form action="{{ route('perkeras.destroy', $perkera->id) }}" method="POST" onsubmit="return confirm('Yakin ingin menghapus perangkat keras ini?')">
@@ -95,12 +91,6 @@
                 </td>
                 <td class="px-6 py-4">
                     <input type="text" name="nama" placeholder="Perangkat" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </td>
-                <td class="px-6 py-4">
-                    <input type="text" name="merek" placeholder="Merek" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                </td>
-                <td class="px-6 py-4">
-                    <input type="text" name="tahun_pembelian" placeholder="Tahun Pembelian" class="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
                 </td>
                 <td class="px-6 py-4 text-sm text-gray-500">{{ auth()->user()->name }}</td>
                 <td class="px-6 py-4 space-x-2">
@@ -163,8 +153,6 @@
             let fakultasId = row.querySelector('select[name="fakultas_id"]').value;
             let labId = row.querySelector('select[name="lab_id"]').value;
             let nama = row.querySelector('input[name="nama"]').value;
-            let merek = row.querySelector('input[name="merek"]').value;
-            let tahun_pembelian = row.querySelector('input[name="tahun_pembelian"]').value;
 
             fetch("{{ route('perkeras.store') }}", {
                 method: "POST",
@@ -177,8 +165,6 @@
                     fakultas_id: fakultasId,
                     lab_id: labId,
                     nama: nama,
-                    merek: merek,
-                    tahun_pembelian: tahun_pembelian
                 })
             })
             .then(response => response.json())

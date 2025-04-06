@@ -21,7 +21,6 @@ class PerlunakController extends Controller
             'fakultas_id' => 'required|exists:fakultas,id',
             'lab_id' => 'required|exists:labs,id',
             'nama' => 'required|string|max:255',
-            'versi' => 'required|string|max:255',
         ]);
 
         try {
@@ -29,7 +28,6 @@ class PerlunakController extends Controller
             $perlunak->fakultas_id = $request->fakultas_id;
             $perlunak->lab_id = $request->lab_id;
             $perlunak->nama = $request->nama;
-            $perlunak->versi = $request->versi;
             $perlunak->user_id = Auth::id();
             $perlunak->save();
 

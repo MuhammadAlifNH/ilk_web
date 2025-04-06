@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pemeriksaans', function (Blueprint $table) {
+        Schema::create('periksa_keras', function (Blueprint $table) {
             $table->id();
-            $table->enum('jenis', ['Perangkat Keras', 'Perangkat Lunak']);
             $table->foreignId('fakultas_id')->constrained('fakultas')->onDelete('cascade');
             $table->foreignId('lab_id')->constrained('labs')->onDelete('cascade');
             $table->foreignId('user_id')->nullable()->constrained()->nullOnDelete();
@@ -27,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pemeriksaans');
+        Schema::dropIfExists('periksa_keras');
     }
 };
