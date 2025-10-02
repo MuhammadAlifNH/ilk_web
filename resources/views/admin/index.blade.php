@@ -95,6 +95,33 @@
          </svg>
          <h3 class="mt-4 text-xl font-semibold text-white">Pemeriksaan Perangkat Lunak</h3>
       </a>
-      
+
+      <a href="{{ route('surat-pemberitahuan.index') }}"
+         class="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-red-500 to-orange-500 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M16 12H8m0 0l4-4m-4 4l4 4m-6-8h12a2 2 0 012 2v8a2 2 0 01-2 2H6a2 2 0 01-2-2V8a2 2 0 012-2z" />
+         </svg>
+         <h3 class="mt-4 text-xl font-semibold text-white">Kelola Surat Pemberitahuan</h3>
+      </a>
+
+      <a href="{{ route('admin.permohonan-aplikasi.index') }}"
+         class="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-pink-500 to-red-500 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m2 0a8 8 0 11-16 0 8 8 0 0116 0z" />
+         </svg>
+         <h3 class="mt-4 text-xl font-semibold text-white">Kelola Permohonan Software</h3>
+      </a>
+
+      <a href="{{ route('admin.peminjaman.index') }}"
+         class="flex flex-col items-center justify-center p-6 bg-gradient-to-r from-green-500 to-blue-500 rounded-lg shadow-lg transform hover:scale-105 transition duration-300">
+         <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m2 0a8 8 0 11-16 0 8 8 0 0116 0z" />
+         </svg>
+         <h3 class="mt-4 text-xl font-semibold text-white">Kelola Peminjaman Lab</h3>
+      </a>
+         
   </div>
 </div>

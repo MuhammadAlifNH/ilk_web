@@ -22,6 +22,10 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\InventarisController;
 use App\Http\Controllers\JadwalController;
 use App\Http\Controllers\PemeriksaanController;
+use App\Http\Controllers\SuratPemberitahuanController;
+use App\Http\Controllers\PermohonanAplikasiController;
+use App\Http\Controllers\SuratPeminjamanController;
+use App\Http\Controllers\NotifikasiController;
 use App\Models\PeriksaLunakDetail;
 use App\Models\Perkeras;
 use App\Models\Perlunak;
@@ -74,6 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/notifikasi', [NotifikasiController::class, 'index'])->name('notifikasi.index');
+    Route::get('/notifikasi/{id}', [NotifikasiController::class, 'show'])->name('notifikasi.show');
 });
 
 Route::middleware(['auth', 'admin'])->group(function () {
@@ -109,19 +115,75 @@ Route::middleware(['auth', 'admin'])->group(function () {
 
     Route::get('/periksa-lunak/{id}/download', [PeriksaLunakDetail::class, 'download'])->name('periksa_lunak.download');
 
+    Route::resource('surat-pemberitahuan', SuratPemberitahuanController::class);
+    Route::get('/surat-pemberitahuan/{id}/cetak', [SuratPemberitahuanController::class, 'cetak'])->name('surat-pemberitahuan.cetak');
+
+    // Permohonan Aplikasi - Admin
+    Route::get('/permohonan-aplikasi', [PermohonanAplikasiController::class, 'index'])
+        ->name('admin.permohonan-aplikasi.index');
+    Route::get('/permohonan-aplikasi/{id}/balas', [PermohonanAplikasiController::class, 'balas'])
+        ->name('permohonan-aplikasi.balas');
+    Route::post('/permohonan-aplikasi/{id}/balas', [PermohonanAplikasiController::class, 'kirimBalasan'])
+        ->name('permohonan-aplikasi.kirim-balasan');
+    Route::get('/permohonan-aplikasi/{id}/cetak-balasan', [PermohonanAplikasiController::class, 'cetakBalasan'])
+        ->name('permohonan-aplikasi.cetak-balasan');
+
+    Route::get('admin/peminjaman', [SuratPeminjamanController::class,'adminIndex'])->name('admin.peminjaman.index');
+    Route::post('admin/peminjaman/{id}/approve', [SuratPeminjamanController::class,'approve'])->name('admin.peminjaman.approve');
+    Route::post('admin/peminjaman/{id}/reject', [SuratPeminjamanController::class,'reject'])->name('admin.peminjaman.reject');
+    Route::get('admin/peminjaman/cetak', [SuratPeminjamanController::class,'cetak'])->name('admin.peminjaman.cetak');
 
 });
 
 Route::middleware(['auth', 'teknisi'])->group(function () {
     Route::get('/teknisi',[TeknisiController::class,'index'])->name('teknisi.index');
+
+    // Permohonan Aplikasi - User
+    Route::get('/permohonan-aplikasi/saya', [PermohonanAplikasiController::class, 'myIndex'])
+        ->name('permohonan-aplikasi.saya');
+    Route::get('/permohonan-aplikasi/create', [PermohonanAplikasiController::class, 'create'])
+        ->name('permohonan-aplikasi.create');
+    Route::post('/permohonan-aplikasi', [PermohonanAplikasiController::class, 'store'])
+        ->name('permohonan-aplikasi.store');
+    Route::get('/permohonan-aplikasi/{id}', [PermohonanAplikasiController::class, 'show'])
+        ->name('permohonan-aplikasi.show');
+    Route::get('/permohonan-aplikasi/{id}/cetak', [PermohonanAplikasiController::class, 'cetakPermohonan'])
+        ->name('permohonan-aplikasi.cetak');
+
 });
 
 Route::middleware(['auth', 'laboran'])->group(function () {
     Route::get('/laboran',[LaboranController::class,'index'])->name('laboran.index');
+        // Permohonan Aplikasi - User
+    Route::get('/permohonan-aplikasi/saya', [PermohonanAplikasiController::class, 'myIndex'])
+        ->name('permohonan-aplikasi.saya');
+    Route::get('/permohonan-aplikasi/create', [PermohonanAplikasiController::class, 'create'])
+        ->name('permohonan-aplikasi.create');
+    Route::post('/permohonan-aplikasi', [PermohonanAplikasiController::class, 'store'])
+        ->name('permohonan-aplikasi.store');
+    Route::get('/permohonan-aplikasi/{id}', [PermohonanAplikasiController::class, 'show'])
+        ->name('permohonan-aplikasi.show');
+    Route::get('/permohonan-aplikasi/{id}/cetak', [PermohonanAplikasiController::class, 'cetakPermohonan'])
+        ->name('permohonan-aplikasi.cetak');
 });
 
 Route::middleware(['auth', 'pengguna'])->group(function () {
     Route::get('/pengguna',[PenggunaController::class,'index'])->name('pengguna.index');
+        // Permohonan Aplikasi - User
+    Route::get('/permohonan-aplikasi/saya', [PermohonanAplikasiController::class, 'myIndex'])
+        ->name('permohonan-aplikasi.saya');
+    Route::get('/permohonan-aplikasi/create', [PermohonanAplikasiController::class, 'create'])
+        ->name('permohonan-aplikasi.create');
+    Route::post('/permohonan-aplikasi', [PermohonanAplikasiController::class, 'store'])
+        ->name('permohonan-aplikasi.store');
+    Route::get('/permohonan-aplikasi/{id}', [PermohonanAplikasiController::class, 'show'])
+        ->name('permohonan-aplikasi.show');
+    Route::get('/permohonan-aplikasi/{id}/cetak', [PermohonanAplikasiController::class, 'cetakPermohonan'])
+        ->name('permohonan-aplikasi.cetak');
+
+    Route::get('peminjaman', [SuratPeminjamanController::class,'index'])->name('peminjaman.index');
+    Route::get('peminjaman/create', [SuratPeminjamanController::class,'create'])->name('peminjaman.create');
+    Route::post('peminjaman', [SuratPeminjamanController::class,'store'])->name('peminjaman.store');
 });
 
 require __DIR__.'/auth.php';
